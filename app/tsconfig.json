@@ -20,7 +20,8 @@
     "paths": {
       "@configs/*": ["src/configs/*"],
       "@core/*": ["src/modules/core/*"],
-      "@system/*": ["src/modules/system/*"]
+      "@system/*": ["src/modules/system/*"],
+      "@features/*": ["src/modules/features/*"]
     }
   }
 }
