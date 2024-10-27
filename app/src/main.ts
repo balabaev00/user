@@ -1,11 +1,11 @@
+import { validatorConfig } from '@configs/validator.config';
 import { ValidationPipe, VERSION_NEUTRAL, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Logger } from 'nestjs-pino';
 
-import { Stage, validatorConfig } from '@r1-backend/utils';
-
+import { Stage } from './common/enums';
 import { AppModule } from './app.module';
 
 async function bootstrap(): Promise<void> {
@@ -18,17 +18,17 @@ async function bootstrap(): Promise<void> {
     app.useLogger(logger);
     app.enableCors();
     app.enableShutdownHooks();
-    app.useGlobalPipes(new ValidationPipe(validatorConfig));
 
     app.enableVersioning({
         type: VersioningType.URI,
         defaultVersion: VERSION_NEUTRAL,
     });
+    app.useGlobalPipes(new ValidationPipe({ ...validatorConfig }));
 
     if (process.env.STAGE !== Stage.Production) {
         const config = new DocumentBuilder()
-            .setTitle('Esia')
-            .setDescription('Сервис для взаимодействия с госуслугами')
+            .setTitle('User')
+            .setDescription('Сервис для взаимодействия с пользователем')
             .setVersion('1.0')
             .build();
 
